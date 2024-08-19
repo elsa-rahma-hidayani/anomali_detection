@@ -26,7 +26,7 @@
             </div>
 
             <div class="create">
-            <a href="#">Create New Account</a>
+            <a href="register.php">Create New Account</a>
             </div>
         </form>
     </div>

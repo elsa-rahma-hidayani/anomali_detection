@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT id, nama, e-mail FROM nama_tabel";
+$sql = "SELECT id, nama, email FROM anomali_detection";
 $result = $conn->query($sql);
 ?>
 

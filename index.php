@@ -3,83 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anomaly Checker</title>
-    <link rel="stylesheet" href="public/css/index.css">
+    <title>Upload Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .upload-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .upload-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .upload-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Anomaly Checker</h1>
-        <a href="login.php">Login</a>
-    </div>
-
-    <div class="container">
-        <div class="upload-box">
-            <h1>Upload access.log File</h1>
-            <form action="process.php" method="POST" enctype="multipart/form-data">
-                <label for="access_log">Choose a file</label>
-                <input type="file" name="access_log" id="access_log" accept=".log" required>
-                <br>
-                <button type="submit">Upload and Check Anomalies</button>
-            </form>
-        </div>
-
-        <div class="info-toggle">
-            <button id="toggle-info">Learn About Detected Attacks</button>
-        </div>
-
-        <div class="info-box" id="info-box">
-            <h2>Types of Attacks Detected</h2>
-            <div class="attack-info">
-                <div class="attack-item">
-                    <h3>SQL Injection</h3>
-                    <p>Identifies malicious SQL statements that manipulate databases.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>Path Traversal</h3>
-                    <p>Detects attempts to access restricted directories and files.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>XSS (Cross-Site Scripting)</h3>
-                    <p>Protects against scripts injected into web pages to compromise users.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>Remote File Inclusion (RFI)</h3>
-                    <p>Monitors attempts to include external files on the server.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>Malicious Payloads</h3>
-                    <p>Flags potential shell commands or code injections in requests.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>HTTP Methods Abuse</h3>
-                    <p>Detects misuse of HTTP methods like TRACE, TRACK, and more.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>Password-Based Attacks</h3>
-                    <p>Identifies brute force or repeated login attempts.</p>
-                </div>
-                <div class="attack-item">
-                    <h3>Denial of Service (DoS)</h3>
-                    <p>Recognizes flooding attacks aimed at overwhelming the server.</p>
-                </div>
+    <div class="upload-container">
+        <h1>Upload Your File</h1>
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <div class="upload-btn-wrapper">
+                <button class="upload-btn">Upload File</button>
+                <input type="file" name="uploadedFile" />
             </div>
-        </div>
+        </form>
     </div>
-
-    <footer>
-        &copy; 2024 Anomaly Checker. All rights reserved.
-    </footer>
-
-    <script>
-        document.getElementById('toggle-info').addEventListener('click', function() {
-            var infoBox = document.getElementById('info-box');
-            if (infoBox.style.display === 'none' || infoBox.style.display === '') {
-                infoBox.style.display = 'block';
-            } else {
-                infoBox.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 
 </html>

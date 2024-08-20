@@ -4,98 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anomaly Checker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #f4f4f4;
-        }
-
-        .navbar {
-            background-color: #333;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar h1 {
-            color: #fff;
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .container {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .upload-box {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .upload-box h1 {
-            margin-bottom: 30px;
-            font-size: 28px;
-            color: #333;
-        }
-
-        .upload-box input[type="file"] {
-            display: none;
-        }
-
-        .upload-box label {
-            font-size: 18px;
-            padding: 20px 40px;
-            background-color: #007BFF;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .upload-box button {
-            padding: 15px 30px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .upload-box button:hover {
-            background-color: #218838;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/index.css">
 </head>
 <body>
     <div class="navbar">
@@ -113,10 +22,63 @@
                 <button type="submit">Upload and Check Anomalies</button>
             </form>
         </div>
+
+        <div class="info-toggle">
+            <button id="toggle-info">Learn About Detected Attacks</button>
+        </div>
+
+        <div class="info-box" id="info-box">
+            <h2>Types of Attacks Detected</h2>
+            <div class="attack-info">
+                <div class="attack-item">
+                    <h3>SQL Injection</h3>
+                    <p>Identifies malicious SQL statements that manipulate databases.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>Path Traversal</h3>
+                    <p>Detects attempts to access restricted directories and files.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>XSS (Cross-Site Scripting)</h3>
+                    <p>Protects against scripts injected into web pages to compromise users.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>Remote File Inclusion (RFI)</h3>
+                    <p>Monitors attempts to include external files on the server.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>Malicious Payloads</h3>
+                    <p>Flags potential shell commands or code injections in requests.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>HTTP Methods Abuse</h3>
+                    <p>Detects misuse of HTTP methods like TRACE, TRACK, and more.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>Password-Based Attacks</h3>
+                    <p>Identifies brute force or repeated login attempts.</p>
+                </div>
+                <div class="attack-item">
+                    <h3>Denial of Service (DoS)</h3>
+                    <p>Recognizes flooding attacks aimed at overwhelming the server.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
         &copy; 2024 Anomaly Checker. All rights reserved.
     </footer>
+
+    <script>
+        document.getElementById('toggle-info').addEventListener('click', function() {
+            var infoBox = document.getElementById('info-box');
+            if (infoBox.style.display === 'none' || infoBox.style.display === '') {
+                infoBox.style.display = 'block';
+            } else {
+                infoBox.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

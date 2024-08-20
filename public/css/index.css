@@ -1,0 +1,174 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #00abff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    color: #fff;
+    margin: 0;
+    font-size: 24px;
+}
+
+.navbar a {
+    color: #000000;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+/* Container styles */
+.container {
+    text-align: center;
+    padding: 50px;
+    flex: 1; /* Makes the container take up the remaining space */
+}
+
+/* Upload box styles */
+.upload-box {
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.upload-box h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.upload-box form {
+    margin-top: 20px;
+}
+
+.upload-box label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+.upload-box input[type="file"] {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.upload-box button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Toggle button styles */
+.info-toggle {
+    margin-top: 30px;
+}
+
+.info-toggle button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #007BFF;
+    background-color: #fff;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.info-toggle button:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Additional styles for attack information */
+.info-box {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none; /* Hidden by default */
+}
+
+.info-box h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.attack-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.attack-item {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    width: 220px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.attack-item h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.attack-item p {
+    font-size: 13px;
+    margin: 10px 0 0;
+}
+
+.attack-item:hover {
+    transform: scale(1.05);
+    background-color: #0056b3;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    position: static;
+    bottom: 0;
+    width: 100%;
+}

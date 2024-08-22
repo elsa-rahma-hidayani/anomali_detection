@@ -15,9 +15,9 @@
     <div class="container">
         <div class="upload-box">
             <h1>Upload access.log File</h1>
-            <form action="process.php" method="POST" enctype="multipart/form-data">
+            <form action="result.php" method="POST" enctype="multipart/form-data">
                 <label for="access_log">Choose a file</label>
-                <input type="file" name="access_log" id="access_log" accept=".log" required>
+                <input type="file" name="logfile" id="logfile" accept=".log" required>
                 <br>
                 <button type="submit">Upload and Check Anomalies</button>
             </form>

@@ -172,3 +172,29 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Button Styling for Upload Another File */
+.upload-again-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007bff; /* Blue color for the button */
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.upload-again-btn:hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.upload-again-btn:active {
+    background-color: #004494; /* Even darker blue when clicked */
+    transform: scale(1); /* Reset the scale when clicked */
+}
+

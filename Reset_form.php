@@ -7,14 +7,13 @@
 <body>
   <div class="container">
     <h1>Reset Password</h1>
+    <form action="reset2.php" method="post">
       <div class="form-group">
-        <label for="E-mail">E-mail</label>
-        <input type="text" id="E-mail" name="E-mail" required>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required>
       </div>
 
-      <a href="send_reset_link.php"
       <button type="submit">Reset Password</button>
-    </a>
     </form>
   </div>
 </body>

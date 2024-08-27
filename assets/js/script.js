@@ -43,3 +43,35 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("load", adjustFooter);
 });
 
+// Function to check if a file is selected
+document.addEventListener("DOMContentLoaded", function() {
+    const uploadForm = document.querySelector('form');
+    const fileInput = document.getElementById('logfile');
+    const uploadButton = document.querySelector('button[type="submit"]');
+
+    // Disable the submit button initially
+    uploadButton.disabled = true;
+
+    // Enable submit button only when a file is selected
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 0) {
+            uploadButton.disabled = false;
+        } else {
+            uploadButton.disabled = true;
+        }
+    });
+
+    // Check if form is submitted without file
+    uploadForm.addEventListener('submit', function(event) {
+        if (fileInput.files.length === 0) {
+            event.preventDefault();
+            alert('Please select a file before uploading.');
+        }
+    });
+});
+
+document.getElementById('logfile').addEventListener('change', function () {
+    if (this.files && this.files[0]) {
+        document.querySelector('button[type="submit"]').innerText = 'Uploading...';
+    }
+}); 

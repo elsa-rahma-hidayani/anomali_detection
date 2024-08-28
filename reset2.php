@@ -36,20 +36,29 @@ if($result = $conn->query($sql)){
                 </html>
             ';
 
+            // Encode konten HTML
+            $encodedMailContent = escapeshellarg($mailContent);
+
             // Path ke send-email.js
             $scriptPath = 'C:\\xampp\\htdocs\\anomali_detection\\send-email.js';
             $command = 'node ' . escapeshellarg($scriptPath) . ' ' .
                        escapeshellarg($email) . ' ' .
                        escapeshellarg('Reset Password') . ' ' .
-                       escapeshellarg($mailContent);
+                       $encodedMailContent;
 
             // Jalankan skrip Node.js untuk mengirim email
             exec($command, $output, $return_var);
             
+            // Log output dan status
+            file_put_contents('php_command_output_log.txt', print_r($output, true));
+            file_put_contents('php_command_return_var_log.txt', $return_var);
+
             if ($return_var === 0) {
                 $data["message"] = "Email reset password telah dikirim. Silakan cek email Anda untuk instruksi lebih lanjut.";
             } else {
                 $data["message"] = "Maaf, terjadi kesalahan sistem. Permintaan Anda tidak dapat diproses.";
+                // Tambahkan logging detail untuk debugging
+                file_put_contents('php_error_log.txt', print_r($output, true), FILE_APPEND);
             }
             
             array_push($response["field"], $data);

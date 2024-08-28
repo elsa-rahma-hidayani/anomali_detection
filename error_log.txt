@@ -1,4 +1,0 @@
-{
-  "code": "EENVELOPE",
-  "command": "API"
-}

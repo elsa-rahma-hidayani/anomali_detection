@@ -15,6 +15,13 @@
 
       <button type="submit">Reset Password</button>
     </form>
+
+    <!-- Area untuk menampilkan pesan error atau sukses -->
+    <?php if (isset($_GET['message'])): ?>
+      <div class="alert">
+        <?php echo htmlspecialchars($_GET['message']); ?>
+      </div>
+    <?php endif; ?>
   </div>
 </body>
 </html>

@@ -12,15 +12,15 @@
     "CHUNKING",
     "SMTPUTF8"
   ],
-  "envelopeTime": 843,
-  "messageTime": 742,
+  "envelopeTime": 799,
+  "messageTime": 746,
   "messageSize": 235,
-  "response": "250 2.0.0 OK  1724817635 d2e1a72fcca58-71434252726sm9253693b3a.66 - gsmtp",
+  "response": "250 2.0.0 OK  1724819175 d9443c01a7336-2038556657asm90277495ad.47 - gsmtp",
   "envelope": {
     "from": "testerprogram69@gmail.com",
     "to": [
       "indinotgod@gmail.com"
     ]
   },
-  "messageId": "<c515da3f-ee4e-295d-9e43-ea3abc3e7764@gmail.com>"
+  "messageId": "<67911844-b94b-e4d2-6844-688d01e12407@gmail.com>"
 }

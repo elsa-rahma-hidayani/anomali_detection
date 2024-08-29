@@ -3,17 +3,35 @@ import pandas as pd
 from urllib.parse import unquote
 import re
 import csv
-import sys
+from tqdm import tqdm
 
-# Ensure the log file path is passed as an argument
-if len(sys.argv) < 2:
-    with open('result.txt', 'w') as result_file:
-        result_file.write("Error: Log file path not provided.")
-    print("Error: Log file path not provided.")
-    exit()
-
-log_file_path = sys.argv[1]
+# Path for uploaded log file and converted CSV file
+log_file_path = 'uploads/access.log'
 csv_file_path = 'access.csv'
+
+# Define regex patterns and columns
+combined_regex = r'^(?P<client>\S+) \S+ (?P<userid>\S+) \[(?P<datetime>[^\]]+)\] "(?P<method>[A-Z]+) (?P<request>[^ "]+)? HTTP/[0-9.]+" (?P<status>[0-9]{3}) (?P<size>[0-9]+|-) "(?P<referrer>[^"]*)" "(?P<useragent>[^"]*)"'
+columns = ['client', 'userid', 'datetime', 'method', 'request', 'status', 'size', 'referrer', 'user_agent']
+
+def logs_to_df(logfile):
+    parsed_lines = []
+    with open(logfile) as source_file:
+        for line in tqdm(source_file):
+            try:
+                log_line = re.findall(combined_regex, line)[0]
+                parsed_lines.append(log_line)
+            except Exception as e:
+                continue
+
+    # Convert parsed lines to DataFrame
+    df = pd.DataFrame(parsed_lines, columns=columns)
+    return df
+
+def decode_url(encoded_str):
+    try:
+        return unquote(encoded_str)
+    except Exception as e:
+        return encoded_str
 
 # Ensure the log file exists
 if not os.path.isfile(log_file_path):
@@ -22,26 +40,16 @@ if not os.path.isfile(log_file_path):
     print("Error: access.log file was not found.")
     exit()
 
-# Convert log file to CSV
-def convert_log_to_csv(log_file_path, csv_file_path):
-    try:
-        with open(log_file_path, 'r') as log_file, open(csv_file_path, 'w', newline='') as csv_file:
-            reader = csv.reader(log_file, delimiter=' ')
-            writer = csv.writer(csv_file)
-            writer.writerow(['client', 'userid', 'datetime', 'method', 'request', 'status', 'size', 'referrer', 'user_agent'])
-            
-            for line in reader:
-                if len(line) > 8:  # Basic check to skip incomplete lines
-                    writer.writerow(line[:9])  # Adjust based on actual log format
-        print("Log conversion to CSV successful.")
-    except Exception as e:
-        with open('result.txt', 'w') as result_file:
-            result_file.write(f"Error during log conversion: {str(e)}")
-        print(f"Error during log conversion: {str(e)}")
-        exit()
-
-# Run conversion
-convert_log_to_csv(log_file_path, csv_file_path)
+# Convert log file to DataFrame
+try:
+    df = logs_to_df(log_file_path)
+    df.to_csv(csv_file_path, index=False)
+    print("Log conversion to CSV successful.")
+except Exception as e:
+    with open('result.txt', 'w') as result_file:
+        result_file.write(f"Error during log conversion: {str(e)}")
+    print(f"Error during log conversion: {str(e)}")
+    exit()
 
 # Check if CSV file was created
 if not os.path.isfile(csv_file_path):
@@ -61,7 +69,7 @@ except Exception as e:
     exit()
 
 # URL Decoding
-df['decoded_request'] = df['request'].apply(unquote)
+df['decoded_request'] = df['request'].apply(decode_url)
 
 # Feature Extraction for Path Traversal
 df['is_path_traversal'] = df['decoded_request'].apply(lambda x: 1 if re.search(r'(\.\./|\.\.\\|%2F%2E%2E|%2E%2E%2F)', x) else 0)
@@ -113,19 +121,35 @@ def determine_attack_focus(row):
         return 'Malicious Payload'
     elif row['is_http_methods_abuse']:
         return 'HTTP Methods Abuse'
-    elif row['is_repeated_login']:
-        return 'Repeated Login Attempts (Password Attack)'
+    elif row['is_password_attack']:
+        return 'Password-Based Attack'
     else:
-        return 'No Attack Detected'
+        return 'Normal'
 
 df['attack_focus'] = df.apply(determine_attack_focus, axis=1)
 
-# Save the results in result.txt
-try:
-    df[df['attack_focus'] != 'No Attack Detected'].to_csv('result.txt', columns=['client', 'datetime', 'decoded_request', 'attack_focus'], index=False)
-    print("Anomaly detection completed and results saved to result.txt.")
-except Exception as e:
-    with open('result.txt', 'w') as result_file:
-        result_file.write(f"Error saving results: {str(e)}")
-    print(f"Error saving results: {str(e)}")
-    exit()
+# Count anomalies
+total_path_traversal = df[df['is_path_traversal'] == 1].shape[0]
+total_sql_injection = df[df['is_sql_injection'] == 1].shape[0]
+total_ognl_injection = df[df['is_ognl_injection'] == 1].shape[0]
+total_xss = df[df['is_xss'] == 1].shape[0]
+total_rfi = df[df['is_rfi'] == 1].shape[0]
+total_malicious_payload = df[df['is_malicious_payload'] == 1].shape[0]
+total_http_methods_abuse = df[df['is_http_methods_abuse'] == 1].shape[0]
+total_password_attacks = df[df['is_password_attack'] == 1].shape[0]
+total_repeated_login_attempts = df[df['is_repeated_login'] == 1].shape[0]
+
+# Save the results to a text file
+with open('result.txt', 'w') as result_file:
+    result_file.write(f"Total Path Traversal Attacks: {total_path_traversal}\n")
+    result_file.write(f"Total SQL Injection Attacks: {total_sql_injection}\n")
+    result_file.write(f"Total OGNL Injection Attacks: {total_ognl_injection}\n")
+    result_file.write(f"Total XSS Attacks: {total_xss}\n")
+    result_file.write(f"Total Remote File Inclusion (RFI) Attacks: {total_rfi}\n")
+    result_file.write(f"Total Malicious Payload Attacks: {total_malicious_payload}\n")
+    result_file.write(f"Total HTTP Methods Abuse Attacks: {total_http_methods_abuse}\n")
+    result_file.write(f"Total Password-Based Attacks: {total_password_attacks}\n")
+    result_file.write(f"Total Repeated Login Attempts: {total_repeated_login_attempts}\n")
+
+# Save the detailed attack detection results to a CSV file
+df.to_csv('attack_detection_results.csv', index=False)

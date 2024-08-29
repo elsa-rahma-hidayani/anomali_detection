@@ -9,7 +9,7 @@
 <body>
     <div class="navbar">
         <h1>Anomaly Checker</h1>
-        <a href="login.html">Login</a>
+        <a href="login.php">Login</a>
     </div>
 
     <div class="container">

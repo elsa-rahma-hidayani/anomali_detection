@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
 
     // Jalankan send-email.js dengan Node.js untuk mengirim email
-    $command = 'node C:/xampp/htdocs/anomali_detection/send-email.js ' . escapeshellarg($email);
+    $command = 'node C:/xampp/htdocs/anomali_detection/assets/js/send-email.js ' . escapeshellarg($email);
     exec($command, $output, $resultCode);
 
     if ($resultCode === 0) {

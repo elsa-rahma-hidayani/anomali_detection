@@ -1,45 +1,62 @@
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-const querystring = require('querystring');
+const Mailgen = require('mailgen');
 
 // Ambil argumen dari command line
-const [,, toEmail, subject, encodedHtmlContent] = process.argv;
-
-// Decode HTML content
-const htmlContent = querystring.unescape(encodedHtmlContent);
-
-console.log(`To: ${toEmail}`);
-console.log(`Subject: ${subject}`);
-console.log(`Content: ${htmlContent}`);
+const [,, toEmail] = process.argv;
 
 // Konfigurasi transporter Nodemailer
 let transporter = nodemailer.createTransport({
-    service: 'gmail', // Anda dapat mengganti dengan penyedia email lain jika perlu
+    service: 'gmail',
     auth: {
-        user: 'testerprogram69@gmail.com', // Ganti dengan email Anda
-        pass: 'quutydjperztxhnr' // Ganti dengan password email atau app password Anda
+        user: 'testerprogram69@gmail.com',
+        pass: 'quutydjperztxhnr'
     }
 });
 
-// Opsi email
-let mailOptions = {
-    from: 'testerprogram69@gmail.com', // Ganti dengan email Anda
-    to: toEmail,
-    subject: subject,
-    html: htmlContent
+// Konfigurasi Mailgen
+let MailGenerator = new Mailgen({
+    theme: "default",
+    product: {
+        name: "Layanan Aplikasi Blablabla",
+        link: 'http://localhost'
+    }
+});
+
+// Isi email
+let email = {
+    body: {
+        name: "Broski",
+        intro: "Kami menerima permintaan untuk mereset password Anda. Silakan klik link di bawah ini untuk mengatur ulang password Anda.",
+        action: {
+            instructions: 'Klik tombol berikut untuk mengatur ulang password Anda:',
+            button: {
+                color: '#22BC66',
+                text: 'Reset Password',
+                link: 'http://localhost/reset-password.php?token=2bfc8b89b7ed1120da614cbaa68bdc1adba52b809cbbfe2aaef0b7a22e53b004'
+            }
+        },
+        outro: 'Jika Anda tidak meminta reset password, abaikan email ini.'
+    }
 };
 
-// Tambahkan logging untuk debugging lebih mendalam
-console.log("Starting email send process...");
+// Generate HTML email dengan Mailgen
+let emailBody = MailGenerator.generate(email);
 
+// Opsi email
+let mailOptions = {
+    from: 'testerprogram69@gmail.com',
+    to: toEmail,
+    subject: 'Reset Password',
+    html: emailBody
+};
+
+// Kirim email
 transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
         console.error('Error occurred: ', error);
-        fs.writeFileSync('detailed_error_log.txt', JSON.stringify(error, null, 2));
         process.exit(1); // Exit dengan kode error
     } else {
         console.log('Email sent: ' + info.response);
-        fs.writeFileSync('send_success_log.txt', JSON.stringify(info, null, 2));
         process.exit(0); // Exit dengan kode sukses
     }
 });

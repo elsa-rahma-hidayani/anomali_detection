@@ -4,5 +4,5 @@ Array
     [1] => Subject: Reset Password
     [2] => Content:
     [3] => Starting email send process...
-    [4] => Email sent: 250 2.0.0 OK  1724817920 d2e1a72fcca58-7143424fa9csm9269621b3a.62 - gsmtp
+    [4] => Email sent: 250 2.0.0 OK  1724819175 d9443c01a7336-2038556657asm90277495ad.47 - gsmtp
 )

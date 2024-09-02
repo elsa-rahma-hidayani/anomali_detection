@@ -43,30 +43,28 @@ $conn->close();
             <img src="your_logo.png" alt="Company Logo"> 
         </div>
         <h2>Login to your account</h2>
-        
+        <!-- Start Form -->
+        <form action="login.php" method="POST">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <input type="email" id_member="email" name="email" placeholder="Enter your email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password">
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
-            <a href="index.php">
-                <button type="button">SIGN IN</button>
-            </a>
-
-                
-            
-            <div class="forgot">
-            <a href="Reset.html">Forgot Password</a>
-            </div>
-
-            <div class="create">
-            <a href="register.php">Create New Account</a>
-            </div>
+            <button type="submit">LOG IN</button>
         </form>
+        <!-- End Form -->
+  
+        <div class="forgot">
+            <a href="Reset_form.php">Forgot Password</a>
+        </div>
+
+        <div class="create">
+            <a href="register.php">Create New Account</a>
+        </div>
     </div>
 </body>
 </html>

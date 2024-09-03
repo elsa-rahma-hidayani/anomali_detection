@@ -32,7 +32,7 @@ let email = {
             button: {
                 color: '#22BC66',
                 text: 'Reset Password',
-                link: `http://localhost/reset_password.html?token=${token}`
+                link: `http://localhost/anomali_detection/reset_password.html?token=${token}`
             }
         },
         outro: 'Jika Anda tidak meminta reset password, abaikan email ini.'

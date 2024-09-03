@@ -32,7 +32,7 @@ let email = {
             button: {
                 color: '#22BC66',
                 text: 'Reset Password',
-                link: 'http://localhost/reset-password.php?token=2bfc8b89b7ed1120da614cbaa68bdc1adba52b809cbbfe2aaef0b7a22e53b004'
+                link: 'http://localhost/reset_password.html?token=2bfc8b89b7ed1120da614cbaa68bdc1adba52b809cbbfe2aaef0b7a22e53b004'
             }
         },
         outro: 'Jika Anda tidak meminta reset password, abaikan email ini.'

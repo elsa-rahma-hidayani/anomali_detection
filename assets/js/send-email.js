@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
 
 // Ambil argumen dari command line
-const [,, toEmail, token] = process.argv;
+const [,, toEmail, resetToken] = process.argv;
 
 // Konfigurasi transporter Nodemailer
 let transporter = nodemailer.createTransport({
@@ -32,7 +32,7 @@ let email = {
             button: {
                 color: '#22BC66',
                 text: 'Reset Password',
-                link: `http://localhost/anomali_detection/reset_password.html?token=${token}`
+                link: `http://localhost/anomali_detection/reset_password.php?token=${resetToken}`
             }
         },
         outro: 'Jika Anda tidak meminta reset password, abaikan email ini.'

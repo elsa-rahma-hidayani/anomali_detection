@@ -11,7 +11,4 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
-
-// Jika koneksi berhasil
-// echo "Koneksi berhasil"; // Hapus atau komentari baris ini jika tidak diperlukan
 ?>

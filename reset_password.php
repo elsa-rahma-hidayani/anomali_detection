@@ -1,50 +1,37 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $token = $_GET['token'];
-
-    // Cek token di database
-    $stmt = $pdo->prepare("SELECT id FROM login WHERE reset_token = :token AND reset_token_expiration > NOW()");
-    $stmt->bindParam(":token", $token);
-    $stmt->execute();
-    $user = $stmt->fetch();
-
-    if (!$user) {
-        echo "Token tidak valid atau sudah kadaluwarsa.";
-        exit;
-    }
-
-    // Tampilkan form untuk memasukkan password baru
-    echo '<form method="POST">
-            <input type="hidden" name="token" value="' . htmlspecialchars($token) . '">
-            <label for="password">Password Baru:</label>
-            <input type="password" name="password" id="password" required>
-            <button type="submit">Reset Password</button>
-          </form>';
-}
+// Pastikan koneksi database ($conn) sudah diinisialisasi
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['token'];
     $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm-password'];
 
-    // Cek token di database lagi sebelum memperbarui password
-    $stmt = $pdo->prepare("SELECT id FROM login WHERE reset_token = :token AND reset_token_expiration > NOW()");
-    $stmt->bindParam(":token", $token);
-    $stmt->execute();
-    $user = $stmt->fetch();
-
-    if (!$user) {
-        echo "Token tidak valid atau sudah kadaluwarsa.";
+    // Validasi password dan konfirmasi password
+    if ($password !== $confirmPassword) {
+        echo "Password tidak cocok";
         exit;
     }
 
-    // Hash password baru
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-    // Perbarui password dan hapus token
-    $stmt = $pdo->prepare("UPDATE login SET password = :password, reset_token = NULL, reset_token_expiration = NULL WHERE id = :id");
-    $stmt->bindParam(":password", $hashedPassword);
-    $stmt->bindParam(":id", $user['id']);
+    // Cek token dan waktu kedaluwarsa
+    $stmt = $conn->prepare("SELECT id_member FROM login WHERE reset_token = ? AND token_expiry > NOW()");
+    $stmt->bind_param("s", $token);
     $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-    echo "Password Anda berhasil direset. Silakan login dengan password baru.";
+    if ($user) {
+        // Token valid, proses reset password
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        // Update password dan hapus token dari database
+        $stmt = $conn->prepare("UPDATE login SET password = ?, reset_token = NULL, token_expiry = NULL WHERE id_member = ?");
+        $stmt->bind_param("si", $hashedPassword, $user['id_member']);
+        $stmt->execute();
+
+        echo "Password berhasil direset.";
+    } else {
+        // Token tidak valid atau sudah kedaluwarsa
+        echo "Token tidak valid atau sudah kedaluwarsa.";
+    }
 }
+?>

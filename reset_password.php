@@ -1,5 +1,5 @@
 <?php
-// Pastikan koneksi database ($conn) sudah diinisialisasi
+include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['token'];
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Cek token dan waktu kedaluwarsa
-    $stmt = $conn->prepare("SELECT id_member FROM login WHERE reset_token = ? AND token_expiry > NOW()");
+    $stmt = $conn->prepare("SELECT id_member FROM login WHERE reset_token = ? AND reset_token_expiry > NOW()");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         // Update password dan hapus token dari database
-        $stmt = $conn->prepare("UPDATE login SET password = ?, reset_token = NULL, token_expiry = NULL WHERE id_member = ?");
+        $stmt = $conn->prepare("UPDATE login SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id_member = ?");
         $stmt->bind_param("si", $hashedPassword, $user['id_member']);
         $stmt->execute();
 

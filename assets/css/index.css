@@ -248,3 +248,58 @@ footer {
     background-color: #004494; /* Even darker blue when clicked */
     transform: scale(1); /* Reset the scale when clicked */
 }
+
+/* Account settings styles */
+.account-settings {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.account-settings h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.account-settings label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+.account-settings input[type="text"],
+.account-settings input[type="password"],
+.account-settings input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.account-settings button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.account-settings button:hover {
+    background-color: #0056b3;
+}
+
+.account-settings .settings-section {
+    margin-bottom: 30px;
+}

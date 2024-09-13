@@ -1,4 +1,5 @@
 <?php
+session_start(); // Memulai session
 include 'koneksi.php'; // Menyertakan file koneksi
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,7 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Verifikasi password
         if (password_verify($password, $user['password'])) {
-            // Password benar, redirect ke halaman index.php
+            // Password benar, simpan full_name dalam session
+            $_SESSION['full_name'] = $user['full_name']; // Simpan full_name dalam session
+
+            // Redirect ke halaman index.php
             header("Location: index.php");
             exit();
         } else {

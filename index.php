@@ -1,3 +1,17 @@
+<?php
+session_start(); // Memulai session
+
+// Fungsi untuk mengambil huruf awal dari full_name
+function get_initial($full_name) {
+    $words = explode(' ', $full_name); // Pisahkan nama berdasarkan spasi
+    $initials = '';
+    foreach ($words as $word) {
+        $initials .= strtoupper($word[0]); // Ambil huruf pertama dari setiap kata dan buat huruf besar
+    }
+    return $initials[0]; // Ambil huruf pertama dari initial
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +23,19 @@
 <body>
     <div class="navbar">
         <h1>Anomaly Checker</h1>
-        <a href="login.php">Login</a>
+        <?php if(isset($_SESSION['full_name'])): ?>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <?php echo get_initial($_SESSION['full_name']); ?>
+                </button>
+                <div class="dropdown-content">
+                    <a href="account_settings.php">Account Settings</a>
+                    <a href="logout.php">Logout</a>
+                </div>
+            </div>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
     </div>
 
     <div class="container">

@@ -249,57 +249,90 @@ footer {
     transform: scale(1); /* Reset the scale when clicked */
 }
 
-/* Account settings styles */
-.account-settings {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #fff;
+/* Results Box Styling */
+.results-box {
+    margin-top: 30px;
     padding: 30px;
+    background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.account-settings h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #333;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
-.account-settings label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #555;
-}
-
-.account-settings input[type="text"],
-.account-settings input[type="password"],
-.account-settings input[type="email"] {
-    width: 100%;
-    padding: 10px;
+.results-box h2 {
+    font-size: 28px;
+    color: #333;
     margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
-.account-settings button {
-    width: 100%;
-    padding: 15px;
+/* Success and alert message styles */
+.results-box .success {
     font-size: 18px;
-    color: #fff;
-    background-color: #007BFF;
-    border: none;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.results-box .alert {
+    font-size: 18px;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+.results-box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.results-box table thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.results-box table th, .results-box table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.results-box table th {
+    font-size: 18px;
+}
+
+.results-box table td {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Hover effects on table rows */
+.results-box table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Styling */
+.results-box .upload-again-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.account-settings button:hover {
+.results-box .upload-again-btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
-.account-settings .settings-section {
-    margin-bottom: 30px;
+.results-box .upload-again-btn:active {
+    background-color: #004494;
+    transform: scale(1);
 }
